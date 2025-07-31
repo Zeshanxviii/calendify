@@ -44,6 +44,25 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+@theme {
+  /* Define a custom CSS variable that uses a keyframe animation */
+  --animate-fade-in: fade-in-scale 0.3s ease-out;
+
+  /* Define the keyframes for the "fade-in-scale" animation */
+  @keyframes fade-in-scale {
+    0% {
+      /* Start: slightly smaller and fully transparent */
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      /* End: fully visible and normal size */
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
 :root {
   --radius: 0.625rem;
   --card: oklch(1 0 0);
@@ -117,15 +136,8 @@
   * {
     @apply border-border outline-ring/50;
   }
-
-  html,
   body {
-    @apply w-full h-full min-h-screen bg-background text-foreground m-0 p-0;
-  }
-
-  body {
-    @apply flex items-center justify-center;
+    @apply bg-background text-foreground;
   }
 }
-
 

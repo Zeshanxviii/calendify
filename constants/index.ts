@@ -7,3 +7,21 @@ export const DAYS_OF_WEEK_IN_ORDER = [
     "saturday",
     "sunday"
 ] as const
+
+export const PrivateNavLinks = [
+    {
+        imageURL: "/events.svg",
+        route: "/events",
+        label: "My Events"
+    },
+    {
+        imageURL: "/schedule.svg",
+        route: "/schedule",
+        label: "My Schedule"
+    },
+    {
+        imageURL: "/public.svg",
+        route: "/books",
+        label: "My Public, Profile"
+    },
+] as const 

@@ -4,16 +4,13 @@ import Image from "next/image";
 
 export default function LoginPage(){
   return (
-    <main className="flex flex-col text-center p-5 gap-10">
-      <div className="w-full flex items-center justify-center">
+    <main className="flex flex-col items-center p-5 gap-10 animate-fade-in">
         <Image
-          className="items-center"
           src="/logo.svg"
           width={100}
           height={100}
           alt="logo"
         />
-      </div>
       <div className="mt-3">
         <SignIn 
         appearance={{

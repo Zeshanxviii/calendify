@@ -6,7 +6,6 @@ export default async function MainLayout({ children }: { children : React.ReactN
     const user = await currentUser()
     return (
         <main className="relative">
-            //navbar
             {user ? <PrivateNavBar /> : <PublicNavBar />}
             <section className="pt-36">
                 {children}
