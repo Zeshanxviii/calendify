@@ -1,3 +1,4 @@
+import EventForm from "@/components/form/EventForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function NewEventPage()
@@ -11,7 +12,7 @@ export default function NewEventPage()
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                {/* <EventForm/> */}
+                <EventForm/>
             </CardContent>
         </Card>
         </>
