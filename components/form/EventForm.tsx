@@ -14,7 +14,7 @@ import { AlertDialogDescription } from "@radix-ui/react-alert-dialog"
 import Link from "next/link"
 import { useTransition } from "react"
 import { createEvent, deleteEvent, updateEvent } from "@/server/actions/event"
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 
 //this component will handle creating updating and deleting event
 export default function EventForm({ event }: {
@@ -142,7 +142,7 @@ export default function EventForm({ event }: {
                                 <FormControl>
                                     <Switch
                                         checked={field.value}
-                                        onChange={field.onChange} />
+                                        onChange={() =>field.onChange} />
                                 </FormControl>
                                 <FormLabel>
                                     Active
@@ -165,7 +165,7 @@ export default function EventForm({ event }: {
                                 className=""
                                 variant="destructive"
                                 disabled={isDeletePending || form.formState.isSubmitting}>
-
+                                    Delete
                             </Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
@@ -182,10 +182,11 @@ export default function EventForm({ event }: {
                                         startDeleteTransition(async () => {
                                             try {
                                                 await deleteEvent(event.id)
+                                                router.push("/events");
                                             } catch (error: any) {
                                                 form.setError("root", {
                                                     message: `There was an error deleting your event:${error.message
-                                                        }`
+                                                    }`
                                                 })
                                             }
                                         })
