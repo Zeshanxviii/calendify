@@ -20,7 +20,7 @@ export async function createEvent(
 
         await db.insert(EventTable).values({
             ...data,
-            descriptionInMinutes: data.durationInMinutes,
+            durationInMinutes: data.durationInMinutes,
             clerkUserId: userId
         })
         revalidatePath('/events')
@@ -83,4 +83,15 @@ export async function deleteEvent(
         revalidatePath('/events')
     }
 
+}
+
+type EventRow = typeof EventTable.$inferSelect
+
+export async function getEvents(clerkUserId:string): Promise<EventRow[]> {
+     const event = await db.query.EventTable.findMany({
+        where: ({clerkUserId: userIdCol}, {eq}) => eq(userIdCol, clerkUserId),
+        orderBy: ({ name }, { asc, sql }) => asc(sql`lower(${name})`),
+     })
+
+     return event
 }
