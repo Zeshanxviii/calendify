@@ -40,7 +40,7 @@ export const ScheduleAvailabilityTable = pgTable("scheduleAvailabities",{
     scheduleId: uuid("scheduleId").notNull().references(() => ScheduleTable.id, { onDelete: "cascade" }),
     startTime: text("startTime").notNull(),
     endTime: text("endTime").notNull(),
-    dayofWeek: scheduleDayOfWeekEnum("dayOfWeek").notNull(),
+    dayOfWeek: scheduleDayOfWeekEnum("dayOfWeek").notNull(),
 },
 table => ([
     index("scheduleIdIndex").on(table.scheduleId),
