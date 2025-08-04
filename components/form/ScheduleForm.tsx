@@ -1,11 +1,9 @@
 "use client"
 
 import { DAYS_OF_WEEK_IN_ORDER } from "@/constants"
-import { scheduleDayOfWeekEnum } from "@/drizzle/schema"
 import { timeToFloat } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
-import z from "zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { scheduleFormSchema } from "@/schema/schedule"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
@@ -16,18 +14,19 @@ import { Plus, X } from "lucide-react"
 import { Input } from "../ui/input"
 import { toast } from "sonner"
 import { saveSchedule } from "@/server/actions/schedule"
+import z from "zod"
 
 type Availability = {
     startTime: string,
     endTime: string,
-    dayofWeek: (typeof DAYS_OF_WEEK_IN_ORDER)[number]
+    dayOfWeek: (typeof DAYS_OF_WEEK_IN_ORDER)[number]
 }
 
 export default function ScheduleForm({
     schedule
 }:{ schedule?: {
     timezone: string
-    availability: Availability[]
+    availabilities: Availability[]
 }})
 {
     const form = useForm<z.infer<typeof scheduleFormSchema>>({
@@ -35,7 +34,7 @@ export default function ScheduleForm({
         defaultValues: {
             timezone: 
                 schedule?.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
-            availability: schedule?.availability.toSorted((a,b)=>{
+            availability: schedule?.availabilities.toSorted((a,b)=>{
                 return timeToFloat(a.startTime) - timeToFloat(b.startTime)
             })
         }
