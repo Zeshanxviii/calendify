@@ -105,3 +105,20 @@ Promise<EventRow | undefined> {
 
     return event ?? undefined
 }
+
+export type PublicEvent = Omit<EventRow, "isActive"> & { isActive: true }
+
+export async function getPublicEvents(clerkUserId: string): Promise<PublicEvent[]> {
+    // Query the database for events where:
+    // - the clerkUserId matches
+    // - the event is marked as active
+    // Events are ordered alphabetically (case-insensitive) by name
+    const events = await db.query.EventTable.findMany({
+      where: ({ clerkUserId: userIdCol, isActive }, { eq, and }) =>
+        and(eq(userIdCol, clerkUserId), eq(isActive, true)),
+      orderBy: ({ name }, { asc, sql }) => asc(sql`lower(${name})`),
+    })
+  
+    // Cast the result to the PublicEvent[] type to indicate all are active
+    return events as PublicEvent[]
+  }
