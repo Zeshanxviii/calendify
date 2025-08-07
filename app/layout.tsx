@@ -3,6 +3,15 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";  
 import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from "@/components/ui/sonner"
+import { Inter, Roboto, Poppins } from 'next/font/google';
+
+// Define the font
+const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({ weight: '400', subsets: ['latin'] });
+const poppins = Poppins({ 
+  weight: ['400', '700'], // Specify multiple weights if needed
+  subsets: ['latin'],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +37,7 @@ export default function RootLayout({
   return (
     <ClerkProvider
     >
-    <html lang="en">
+    <html lang="en" className={inter.className}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
