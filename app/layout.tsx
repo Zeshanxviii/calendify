@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from "@/components/ui/sonner"
 import { Inter, Roboto, Poppins } from 'next/font/google';
+import { ThemeProvider } from "@/components/theme-provider"
 
 // Define the font
 const inter = Inter({ subsets: ['latin'] });
@@ -35,16 +36,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-    >
-    <html lang="en" className={inter.className}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      <ClerkProvider
       >
-        {children}
-        <Toaster />
-      </body>
-    </html>
-    </ClerkProvider>
+      <html lang="en" className={inter.className} suppressHydrationWarning>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          >
+          {children}
+          <Toaster />
+          </ThemeProvider>
+        </body>
+      </html>
+      </ClerkProvider>
   );
 }
